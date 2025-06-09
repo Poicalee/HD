@@ -75,14 +75,13 @@ def create_test_data(self):
 Główne okno aplikacji UCI Drug Consumption Analyzer
 """
 
-import os
-import sys
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox, scrolledtext
-
-import matplotlib.pyplot as plt
-import numpy as np
+import sys
+import os
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Dodaj ścieżki do modułów
@@ -94,7 +93,7 @@ from models.clustering import ClusterAnalyzer
 from models.classification import ClassificationManager
 from visualization.plots import PlotManager
 from utils.constants import *
-
+from utils.helpers import validate_dataframe
 
 class DrugConsumptionAnalyzer:
     """Główna klasa aplikacji"""
@@ -993,6 +992,12 @@ Zachowuje naturalne korelacje między cechami osobowości.
         except Exception as e:
             messagebox.showerror("Błąd", f"Nie można wykonać porównania substancji: {str(e)}")
             print(f"Błąd w plot_all_substances_comparison: {str(e)}")
+
+    def analyze_cluster_demographics(self):
+        """Analizuje demografię klastrów"""
+        if self.cluster_analyzer.cluster_labels is None:
+            messagebox.showwarning("Uwaga", "Najpierw wykonaj analizę klastrów!")
+            return
 
     def analyze_cluster_demographics(self):
         """Analizuje demografię klastrów"""
